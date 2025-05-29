@@ -1,63 +1,86 @@
 ﻿@model GerenciadorDeContatos.Models.Contatos
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Adicionar Contato";
 }
 
-<h1>Create</h1>
+<style>
+    body{
+        background-color: #648DB3
+    }
+</style>
 
-<h4>Contatos</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @* <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-header bg-#FF407D text-white rounded-top-4 d-flex align-items-center" style="background-color: #FF407D">
+                    <i class="bi bi-person-plus-fill fs-4 me-2"></i>
+                    <h3 class="mb-0">Adicionar Novo Contato</h3>
+                </div>
+                <div class="card-body px-4 py-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Nome" class="form-label fw-semibold"></label>
+                                <input asp-for="Nome" class="form-control rounded-3" placeholder="Nome completo" />
+                                <span asp-validation-for="Nome" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label fw-semibold"></label>
+                                <input asp-for="Email" class="form-control rounded-3" placeholder="exemplo@email.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Telefone" class="form-label fw-semibold"></label>
+                                <input asp-for="Telefone" class="form-control rounded-3" id="Telefone" placeholder="(00) 00000-0000" />
+                                <span asp-validation-for="Telefone" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Endereco" class="form-label fw-semibold"></label>
+                                <input asp-for="Endereco" class="form-control rounded-3" placeholder="Rua, nº, Bairro..." />
+                                <span asp-validation-for="Endereco" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="DataNascimento" class="form-label fw-semibold"></label>
+                                <input asp-for="DataNascimento" class="form-control rounded-3" type="date" />
+                                <span asp-validation-for="DataNascimento" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Categoria" class="form-label fw-semibold"></label>
+                                <input asp-for="Categoria" class="form-control rounded-3" placeholder="Ex: Família, Trabalho, Amigos..." />
+                                <span asp-validation-for="Categoria" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-3">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-success rounded-3 px-4">
+                                <i class="bi bi-check-circle-fill me-1"></i> Adicionar
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" />
-                <span asp-validation-for="Telefone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Endereco" class="control-label"></label>
-                <input asp-for="Endereco" class="form-control" />
-                <span asp-validation-for="Endereco" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataNascimento" class="control-label"></label>
-                <input asp-for="DataNascimento" class="form-control" />
-                <span asp-validation-for="DataNascimento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <input asp-for="Categoria" class="form-control" />
-                <span asp-validation-for="Categoria" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Telefone').mask('(00) 00000-0000');
+        });
+    </script>
 }

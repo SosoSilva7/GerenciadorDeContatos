@@ -44,10 +44,6 @@ namespace GerenciadorDeContatos.Models
         }
 
     
-        //public static List<Contatos> GerarListaContato = new List<Contatos>()
-        //{
-        //    // Método para gerar uma lista de contatos fictícios
-        //    // Implementação omitida para simplificação
-        //};
+      
     }
 }
