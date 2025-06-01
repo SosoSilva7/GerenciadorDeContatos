@@ -16,6 +16,7 @@ namespace GerenciadorDeContatos.Models
 
         
         [Phone(ErrorMessage = "O telefone informado não é válido.")]
+        [StringLength(maximumLength: 15, MinimumLength =15)]
         [Required (ErrorMessage = "O telefone é obrigatório.")]
         public string Telefone { get; set; }
 

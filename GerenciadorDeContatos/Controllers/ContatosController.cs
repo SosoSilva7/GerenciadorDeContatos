@@ -50,8 +50,10 @@ namespace GerenciadorDeContatos.Controllers
             else
             {
                 contatos = GerarListaContato
-                    .Where(c => c.Categoria == categoria)
+                    // pra não ser case sensitive
+                    .Where(c => c.Categoria != null && c.Categoria.Equals(categoria, StringComparison.OrdinalIgnoreCase))
                     .ToList();
+
             }
 
             // Prepara as opções do filtro

@@ -17,6 +17,6 @@ app.UseAuthorization();
 // Mapeia rotas padrão
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Contatos}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
