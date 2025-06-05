@@ -2,11 +2,13 @@
 
 @{
     ViewData["Title"] = "Editar Contato";
+    var categoriasPrincipais = new[] { "Família", "Cliente", "Trabalho", "Amigo" };
+    var isCategoriaOutra = !string.IsNullOrEmpty(Model.Categoria) && !categoriasPrincipais.Contains(Model.Categoria);
 }
 
 <style>
     body {
-        background-color: #648DB3
+        background-color: #F9F9E0
     }
 </style>
 
@@ -14,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg rounded-4 border-0">
-                <div class="card-header bg-#fbc2eb text-dark rounded-top-4 d-flex align-items-center" style="background-color: #fbc2eb">
+                <div class="card-header text-dark rounded-top-4 d-flex align-items-center" style="background-color: #fbc2eb">
                     <i class="bi bi-pencil-square fs-4 me-2"></i>
                     <h3 class="mb-0">Editar Contato</h3>
                 </div>
@@ -57,7 +59,26 @@
 
                             <div class="col-md-6">
                                 <label asp-for="Categoria" class="form-label fw-semibold"></label>
-                                <input asp-for="Categoria" class="form-control rounded-3" placeholder="Ex: Família, Trabalho, Amigos..." />
+
+                                <!-- SELECT PRINCIPAL -->
+                                <select id="categoriaSelect" class="form-select rounded-3">
+                                    <option value="" selected="@(string.IsNullOrEmpty(Model.Categoria))">Selecione...</option>
+                                    <option value="Família" selected="@(Model.Categoria == "Família")">Família</option>
+                                    <option value="Cliente" selected="@(Model.Categoria == "Cliente")">Cliente</option>
+                                    <option value="Trabalho" selected="@(Model.Categoria == "Trabalho")">Trabalho</option>
+                                    <option value="Amigo" selected="@(Model.Categoria == "Amigo")">Amigo</option>
+                                    <option value="Outros" selected="@(isCategoriaOutra)">Outros</option>
+                                </select>
+
+                                <!-- INPUT PARA "OUTROS" -->
+                                <input id="categoriaOutroInput" class="form-control mt-2 rounded-3"
+                                       placeholder="Digite a categoria"
+                                       style="display:@(isCategoriaOutra ? "block" : "none")"
+                                       value="@(isCategoriaOutra ? Model.Categoria : "")" />
+
+                                <!-- INPUT REAL ENVIADO -->
+                                <input type="hidden" name="Categoria" id="Categoria" value="@Model.Categoria" />
+
                                 <span asp-validation-for="Categoria" class="text-danger small"></span>
                             </div>
                         </div>
@@ -83,6 +104,25 @@
     <script>
         $(document).ready(function () {
             $('#Telefone').mask('(00) 00000-0000');
+
+            function atualizarCategoria() {
+                var selected = $('#categoriaSelect').val();
+                if (selected === "Outros") {
+                    $('#categoriaOutroInput').show();
+                    $('#Categoria').val($('#categoriaOutroInput').val());
+                } else {
+                    $('#categoriaOutroInput').hide();
+                    $('#Categoria').val(selected);
+                }
+            }
+
+            $('#categoriaSelect').change(atualizarCategoria);
+            $('#categoriaOutroInput').on('input', function () {
+                $('#Categoria').val($(this).val());
+            });
+
+            // Executa no carregamento inicial
+            atualizarCategoria();
         });
     </script>
 }

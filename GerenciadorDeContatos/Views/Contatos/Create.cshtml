@@ -6,7 +6,7 @@
 
 <style>
     body{
-        background-color: #648DB3
+        background-color:#F9F9E0
     }
 </style>
 
@@ -55,7 +55,18 @@
 
                             <div class="col-md-6">
                                 <label asp-for="Categoria" class="form-label fw-semibold"></label>
-                                <input asp-for="Categoria" class="form-control rounded-3" placeholder="Ex: Família, Trabalho, Amigos..." />
+                                <div class="col-md-6">
+                                    <select class="form-select rounded-3" id="CategoriaSelect" name="Categoria">
+                                        <option value="">Selecione uma categoria</option>
+                                        <option value="Família">Família</option>
+                                        <option value="Cliente">Cliente</option>
+                                        <option value="Trabalho">Trabalho</option>
+                                        <option value="Amigo">Amigo</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+                                    <input type="text" id="CategoriaOutra" name="Categoria" class="form-control rounded-3 mt-2" placeholder="Digite a categoria" style="display:none;" />
+                                    <span asp-validation-for="Categoria" class="text-danger small"></span>
+                                </div>
                                 <span asp-validation-for="Categoria" class="text-danger small"></span>
                             </div>
                         </div>
@@ -82,5 +93,21 @@
         $(document).ready(function () {
             $('#Telefone').mask('(00) 00000-0000');
         });
+        //APARECER INPUT
+            
+        $(document).ready(function () {
+            $('#Telefone').mask('(00) 00000-0000');
+
+            $('#CategoriaSelect').on('change', function () {
+                if ($(this).val() === 'Outros') {
+                    $('#CategoriaOutra').show().focus();
+                    $('#CategoriaSelect').attr('name', ''); // remove o name do select
+                } else {
+                    $('#CategoriaOutra').hide().val('');
+                    $('#CategoriaSelect').attr('name', 'Categoria'); // garante que o name fique no select
+                }
+            });
+        });
+    
     </script>
 }
