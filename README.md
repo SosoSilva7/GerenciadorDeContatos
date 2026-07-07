@@ -1,4 +1,4 @@
-# ☎️  Gerenciador de Contatos (desenvolvido no curso técnico em Desenvolvimento de sistemas)
+# ☎️  Gerenciador de Contatos 
 
 Aplicação web desenvolvida como atividade acadêmica com o objetivo de praticar o padrão MVC (Model-View-Controller) utilizando ASP.NET Core MVC.
 
